@@ -1,9 +1,9 @@
-import { TransactionLog } from '../store/reducers/transactionLog';
+import { Transaction } from '../store/types/Transaction';
 import * as React from 'react';
 import './TransactionTable.css';
 
 interface TransactionTableProps {
-  transactions: TransactionLog;
+  transactions: Transaction[];
 }
 
 const TransactionTable: React.FunctionComponent<TransactionTableProps> = ({ transactions }) => {
