@@ -1,10 +1,9 @@
-import { CurrencyConvertedAmount } from '../store/types/CurrencyConvertedAmount';
-import { Transaction } from '../store/types/Transaction';
+import { TransactionWithConvertedAmounts } from '../store/types/TransactionWithConvertedAmounts';
 import * as React from 'react';
 import './TransactionTable.css';
 
 interface TransactionTableProps {
-  transactions: (Transaction & { convertedAmount: CurrencyConvertedAmount })[];
+  transactions: TransactionWithConvertedAmounts[];
   currencies: string[];
 }
 
