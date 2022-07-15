@@ -44,7 +44,7 @@ const TransactionForm: React.FunctionComponent = () => {
       </label>
       <input name='to-account' type='text' value={toAccount} onChange={handleToAccountChange} />
       <label htmlFor='amount'>
-        Amount:
+        Amount (in Cents):
       </label>
       <input name='amount' type='number' value={amount} onChange={handleAmountChange} />
       <button type='submit'>

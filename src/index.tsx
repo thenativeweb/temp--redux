@@ -1,3 +1,4 @@
+import { addTransaction } from './store/actions/AddTransaction';
 import App from './App';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
@@ -11,6 +12,22 @@ const root = ReactDOM.createRoot(
 );
 
 const reduxStore = storeFactory();
+
+reduxStore.dispatch(addTransaction({
+  fromAccount: 'revenue:Salary',
+  toAccount: 'assets:Cash',
+  amount: 133700
+}));
+reduxStore.dispatch(addTransaction({
+  fromAccount: 'assets:Cash',
+  toAccount: 'expenses:Delivery',
+  amount: 1599
+}));
+reduxStore.dispatch(addTransaction({
+  fromAccount: 'assets:Cash',
+  toAccount: 'expenses:Transport',
+  amount: 900
+}));
 
 root.render(
   <React.StrictMode>

@@ -1,0 +1,12 @@
+.account-table {
+    display: grid;
+    grid-template-columns: 10rem 10rem;
+}
+
+.account-table thead, .account-table tbody, .account-table tr {
+    display: contents;
+}
+
+.account-table tr:nth-child(even) td {
+    background: lightgray;
+}

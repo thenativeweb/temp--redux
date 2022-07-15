@@ -17,14 +17,14 @@ const TransactionTable: React.FunctionComponent<TransactionTableProps> = ({ tran
         To Account
       </th>
       <th>
-        Amount
+        Amount (in €)
       </th>
       </thead>
       <tbody>
       {transactions.map((transaction, index) => (<tr key={index}>
         <td>{ transaction.fromAccount }</td>
         <td>{ transaction.toAccount }</td>
-        <td>{ transaction.amount }</td>
+        <td>{ transaction.amount / 100 }</td>
       </tr>))}
       </tbody>
     </table>
