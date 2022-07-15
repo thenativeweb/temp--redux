@@ -1,24 +1,25 @@
+import { Accounts } from './pages/Accounts';
+import { Content } from './layout/Content';
 import React from 'react';
-import logo from './logo.svg';
+import { Sidebar } from './layout/Sidebar';
+import { StartPage } from './pages/StartPage';
+import { Transactions } from './pages/Transactions';
+import { Route, Routes } from 'react-router-dom';
 import './App.css';
 
-function App() {
+const App: React.FunctionComponent = () => {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Sidebar />
+      <div>
+        <Content>
+          <Routes>
+            <Route path="/" element={<StartPage />} />
+            <Route path="/transactions" element={<Transactions />} />
+            <Route path="/accounts" element={<Accounts />} />
+          </Routes>
+        </Content>
+      </div>
     </div>
   );
 }
