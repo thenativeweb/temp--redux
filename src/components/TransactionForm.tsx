@@ -38,15 +38,15 @@ const TransactionForm: React.FunctionComponent = () => {
       <label htmlFor='from-account'>
         From Account:
       </label>
-      <input name='from-account' type='text' value={fromAccount} onChange={handleFromAccountChange} />
+      <input id='from-account' type='text' value={fromAccount} onChange={handleFromAccountChange} />
       <label htmlFor='to-account'>
         To Account:
       </label>
-      <input name='to-account' type='text' value={toAccount} onChange={handleToAccountChange} />
+      <input id='to-account' type='text' value={toAccount} onChange={handleToAccountChange} />
       <label htmlFor='amount'>
         Amount (in Cents):
       </label>
-      <input name='amount' type='number' value={amount} onChange={handleAmountChange} />
+      <input id='amount' type='number' value={amount} onChange={handleAmountChange} />
       <button type='submit'>
         Submit
       </button>

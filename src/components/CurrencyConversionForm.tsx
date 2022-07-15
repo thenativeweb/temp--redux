@@ -28,7 +28,7 @@ const CurrencyConversionForm: React.FunctionComponent = () => {
         <label htmlFor='currency-code'>
           Currency code:
         </label>
-        <input name='currency-code' type='text' value={currencyCode} onChange={handleCurrencyCodeChange} />
+        <input id='currency-code' type='text' value={currencyCode} onChange={handleCurrencyCodeChange} />
         <button type='submit'>
           Convert
         </button>

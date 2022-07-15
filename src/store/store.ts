@@ -1,23 +1,28 @@
 import accountsReducer from './slices/accountsSlice';
-import { configureStore } from '@reduxjs/toolkit';
 import currencyReducer from './slices/currenciesSlice';
 import transactionLogReducer from './slices/transactionLogSlice';
+import { combineReducers, configureStore } from '@reduxjs/toolkit';
 
-const store = configureStore({
-  reducer: {
-    accounts: accountsReducer,
-    currencies: currencyReducer,
-    transactions: transactionLogReducer
-  }
+const rootReducer = combineReducers({
+  accounts: accountsReducer,
+  currencies: currencyReducer,
+  transactions: transactionLogReducer
 });
 
-type State = ReturnType<typeof store.getState>;
-type StoreDispatch = typeof store.dispatch;
+const setupStore = () => {
+  return configureStore({
+    reducer: rootReducer
+  });
+}
+
+type State = ReturnType<typeof rootReducer>;
+type AppStore = ReturnType<typeof setupStore>;
+type StoreDispatch = AppStore['dispatch'];
 
 export type {
   State,
   StoreDispatch
 };
 export {
-  store
+  setupStore
 };
