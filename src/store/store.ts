@@ -1,4 +1,5 @@
-import { TransactionAction, transactionLogReducer } from "./reducers/transactionLog";
+import { AddTransactionAction } from './actions/AddTransaction';
+import { transactionLogReducer } from "./reducers/transactionLog";
 import { createStore, combineReducers, Dispatch, StateFromReducersMapObject } from 'redux';
 
 const reducers = {
@@ -10,7 +11,7 @@ const storeFactory = () => {
 };
 
 type State = StateFromReducersMapObject<typeof reducers>;
-type StoreDispatch = Dispatch<TransactionAction>;
+type StoreDispatch = Dispatch<AddTransactionAction>;
 
 export type {
   State,

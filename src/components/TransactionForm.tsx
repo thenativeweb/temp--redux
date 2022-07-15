@@ -1,7 +1,7 @@
 import { useDispatch } from 'react-redux';
 import { StoreDispatch } from '../store/store';
 import { useState } from 'react';
-import { addTransaction } from '../store/reducers/transactionLog';
+import { addTransaction } from '../store/actions/AddTransaction';
 import * as React from 'react';
 import './TransactionForm.css';
 

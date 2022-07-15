@@ -1,33 +1,10 @@
-import { Action, ActionCreator, Reducer } from 'redux';
-
-interface Transaction {
-  fromAccount: string;
-  toAccount: string;
-  amount: number;
-}
-
-interface TransactionAction extends Action<'ADD_TRANSACTION'> {
-  transaction: Transaction;
-}
+import { AddTransactionAction } from '../actions/AddTransaction';
+import { Reducer } from 'redux';
+import { Transaction } from '../types/Transaction';
 
 type TransactionLog = Transaction[];
 
-const addTransaction = ({ fromAccount, toAccount, amount }: {
-  fromAccount: string;
-  toAccount: string;
-  amount: number;
-}): TransactionAction => {
-  return {
-    type: 'ADD_TRANSACTION',
-    transaction: {
-      fromAccount,
-      toAccount,
-      amount
-    }
-  }
-}
-
-const transactionLogReducer: Reducer<TransactionLog, TransactionAction> = (state=[], action) => {
+const transactionLogReducer: Reducer<TransactionLog, AddTransactionAction> = (state=[], action) => {
   switch (action.type) {
     case 'ADD_TRANSACTION': {
       return [ ...state, action.transaction ];
@@ -40,10 +17,8 @@ const transactionLogReducer: Reducer<TransactionLog, TransactionAction> = (state
 
 export type {
   Transaction,
-  TransactionAction,
   TransactionLog
 };
 export {
-  addTransaction,
   transactionLogReducer
 };
