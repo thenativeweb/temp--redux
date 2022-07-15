@@ -1,10 +1,12 @@
 import accountsReducer from './slices/accountsSlice';
 import { configureStore } from '@reduxjs/toolkit';
+import currencyReducer from './slices/currenciesSlice';
 import transactionLogReducer from './slices/transactionLogSlice';
 
 const store = configureStore({
   reducer: {
     accounts: accountsReducer,
+    currencies: currencyReducer,
     transactions: transactionLogReducer
   }
 });

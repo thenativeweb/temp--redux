@@ -1,12 +1,11 @@
-.transaction-table {
-    display: grid;
-    grid-template-columns: 10rem 10rem 10rem;
-}
-
-.transaction-table thead, .transaction-table tbody, .transaction-table tr {
-    display: contents;
+.transaction-table th, .transaction-table td {
+    padding-right: 1rem;
 }
 
 .transaction-table tr:nth-child(even) td {
     background: lightgray;
+}
+
+.transaction-table__amount-cell {
+    text-align: end;
 }
