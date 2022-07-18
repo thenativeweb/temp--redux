@@ -61,7 +61,7 @@ const TransactionForm: React.FunctionComponent = () => {
       <select id='currency' value={currency} onChange={handleCurrencyChange} >
         {
           Object.values(Currency).map((currency) => (
-            <option value={currency}>{currency}</option>
+            <option key={currency} value={currency}>{currency}</option>
           ))
         }
       </select>

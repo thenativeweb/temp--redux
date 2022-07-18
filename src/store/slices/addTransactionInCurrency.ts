@@ -17,11 +17,17 @@ const addTransactionInCurrency = createAsyncThunk<
     const { dispatch } = thunkApi;
     const { transaction, currency } = thunkArgs;
 
-    const response = await fetch(
-      `https://api.frankfurter.app/latest?from=${currency}&to=${Currency.EUR}`
-    );
-    const { rates } = await response.json();
-    const amountInEuros = Math.round(transaction.amount * rates[Currency.EUR]);
+    let amountInEuros: number;
+
+    if (currency !== Currency.EUR) {
+      const response = await fetch(
+        `https://api.frankfurter.app/latest?from=${currency}&to=${Currency.EUR}`
+      );
+      const { rates } = await response.json();
+      amountInEuros = Math.round(transaction.amount * rates[Currency.EUR]);
+    } else {
+      amountInEuros = transaction.amount;
+    }
 
     dispatch(addTransaction({
       ...transaction,
