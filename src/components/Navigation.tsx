@@ -4,7 +4,6 @@ import * as React from 'react';
 const Navigation: React.FunctionComponent = () => {
   return (
     <ul>
-      <li><Link to='/'>Start</Link></li>
       <li><Link to='/transactions'>Transactions</Link></li>
       <li><Link to='/accounts'>Accounts</Link></li>
     </ul>
