@@ -1,13 +1,12 @@
-import { TransactionWithConvertedAmounts } from '../store/types/TransactionWithConvertedAmounts';
 import * as React from 'react';
+import { Transaction } from '../store/types/Transaction';
 import './TransactionTable.css';
 
 interface TransactionTableProps {
-  transactions: TransactionWithConvertedAmounts[];
-  currencies: string[];
+  transactions: Transaction[];
 }
 
-const TransactionTable: React.FunctionComponent<TransactionTableProps> = ({ transactions, currencies }) => {
+const TransactionTable: React.FunctionComponent<TransactionTableProps> = ({ transactions }) => {
   return (
     <table className='transaction-table'>
       <thead>
@@ -21,9 +20,6 @@ const TransactionTable: React.FunctionComponent<TransactionTableProps> = ({ tran
           <th>
             Amount (in €)
           </th>
-          {currencies.map(currencyName => (<th key={currencyName}>
-            Amount (in {currencyName})
-          </th>))}
         </tr>
       </thead>
       <tbody>
@@ -31,9 +27,6 @@ const TransactionTable: React.FunctionComponent<TransactionTableProps> = ({ tran
         <td>{ transaction.fromAccount }</td>
         <td>{ transaction.toAccount }</td>
         <td className='transaction-table__amount-cell'>{ transaction.amount / 100 }</td>
-        {currencies.map(currencyName => (<td key={`${index}-${currencyName}`} className='transaction-table__amount-cell'>
-          { transaction.convertedAmount[currencyName] / 100 }
-        </td>))}
       </tr>))}
       </tbody>
     </table>

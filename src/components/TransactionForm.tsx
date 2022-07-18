@@ -1,8 +1,9 @@
-import { useDispatch } from 'react-redux';
-import { StoreDispatch } from '../store/store';
-import { useState } from 'react';
-import { addTransaction } from '../store/slices/transactionLogSlice';
 import * as React from 'react';
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { addTransactionInCurrency } from '../store/slices/addTransactionInCurrency';
+import { StoreDispatch } from '../store/store';
+import { Currency } from '../utils/Currency';
 import './TransactionForm.css';
 
 const TransactionForm: React.FunctionComponent = () => {
@@ -11,6 +12,7 @@ const TransactionForm: React.FunctionComponent = () => {
   const [ fromAccount, setFromAccount ] = useState('');
   const [ toAccount, setToAccount ] = useState('');
   const [ amount, setAmount ] = useState(0);
+  const [ currency, setCurrency ] = useState<Currency>(Currency.EUR);
 
   const handleFromAccountChange: React.EventHandler<React.ChangeEvent<HTMLInputElement>> = (event) => {
     setFromAccount(event.target.value);
@@ -21,12 +23,18 @@ const TransactionForm: React.FunctionComponent = () => {
   const handleAmountChange: React.EventHandler<React.ChangeEvent<HTMLInputElement>> = (event) => {
     setAmount(Number(event.target.value));
   }
+  const handleCurrencyChange: React.EventHandler<React.ChangeEvent<HTMLSelectElement>> = (event) => {
+    setCurrency(event.target.value as Currency);
+  };
   const handleSubmit: React.EventHandler<React.FormEvent<HTMLFormElement>> = (event) => {
     event.preventDefault();
-    dispatch(addTransaction({
-      fromAccount,
-      toAccount,
-      amount
+    dispatch(addTransactionInCurrency({
+      transaction: {
+        fromAccount,
+        toAccount,
+        amount
+      },
+      currency,
     }));
     setFromAccount('');
     setToAccount('');
@@ -47,6 +55,16 @@ const TransactionForm: React.FunctionComponent = () => {
         Amount (in Cents):
       </label>
       <input id='amount' type='number' value={amount} onChange={handleAmountChange} />
+      <label htmlFor='amount'>
+        Currency:
+      </label>
+      <select id='currency' value={currency} onChange={handleCurrencyChange} >
+        {
+          Object.values(Currency).map((currency) => (
+            <option value={currency}>{currency}</option>
+          ))
+        }
+      </select>
       <button type='submit'>
         Submit
       </button>

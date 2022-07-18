@@ -1,11 +1,9 @@
 import accountsReducer from './slices/accountsSlice';
-import currencyReducer from './slices/currenciesSlice';
 import transactionLogReducer from './slices/transactionLogSlice';
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 
 const rootReducer = combineReducers({
   accounts: accountsReducer,
-  currencies: currencyReducer,
   transactions: transactionLogReducer
 });
 
