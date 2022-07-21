@@ -1,0 +1,11 @@
+.account-table th, .account-table td {
+    padding-right: 1rem;
+}
+
+.account-table tr:nth-child(even) td {
+    background: lightgray;
+}
+
+.account-table__balance-cell {
+    text-align: end;
+}

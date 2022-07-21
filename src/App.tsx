@@ -4,6 +4,7 @@ import { Transactions } from './pages/Transactions';
 import { Route, Routes } from 'react-router';
 import * as React from 'react';
 import './App.css';
+import {Accounts} from "./pages/Accounts";
 
 function App() {
   return (
@@ -12,7 +13,8 @@ function App() {
       <div>
         <Content>
           <Routes>
-            <Route path='/' element={<Transactions />} />
+            <Route path='/transactions' element={<Transactions />} />
+            <Route path='/accounts' element={<Accounts />} />
           </Routes>
         </Content>
       </div>
