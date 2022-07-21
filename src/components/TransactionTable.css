@@ -1,0 +1,12 @@
+.transaction-table {
+    display: grid;
+    grid-template-columns: 10rem 10rem 10rem;
+}
+
+.transaction-table thead, .transaction-table tbody, .transaction-table tr {
+    display: contents;
+}
+
+.transaction-table tr:nth-child(even) td {
+    background: lightgray;
+}
