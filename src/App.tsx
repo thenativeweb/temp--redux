@@ -1,24 +1,33 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppState, Dispatch } from './store/setupStore';
 
 function App() {
+  const dispatch = useDispatch<Dispatch>();
+  const transactions = useSelector((state: AppState) => state.transactions);
+
+  const handleButtonClick = function () {
+    dispatch({
+      type: 'ADD_TRANSACTION',
+      payload: {
+        transaction: {
+          fromAccount: 'hannes',
+          toAccount: 'noah',
+          amount: 1337
+        }
+      }
+    })
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <ul>
+        {transactions.map(transaction => (<li>
+          From: {transaction.fromAccount} To: {transaction.toAccount} Amount: {transaction.amount}
+        </li>))}
+      </ul>
+      <button onClick={handleButtonClick}>Add transaction!</button>
     </div>
   );
 }
