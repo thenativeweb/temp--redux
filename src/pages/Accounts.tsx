@@ -6,7 +6,7 @@ import * as React from 'react';
 
 const AccountsList: React.FunctionComponent = () => {
   const accounts = useSelector((state: AppState): Account[] => {
-    const randomlyOrderedAccounts = Object.values(state.accounts);
+    const randomlyOrderedAccounts = Object.values(state.accounts.accounts);
     return randomlyOrderedAccounts.sort((left, right) => left.name.localeCompare(right.name));
   });
 
