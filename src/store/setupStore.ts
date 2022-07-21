@@ -1,10 +1,5 @@
-import { createStore, Action } from 'redux';
-
-interface Transaction {
-  fromAccount: string;
-  toAccount: string;
-  amount: number;
-}
+import { createStore } from 'redux';
+import { Transaction } from './types/Transaction';
 
 interface AddTransactionAction {
   type: 'ADD_TRANSACTION';
