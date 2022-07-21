@@ -1,5 +1,5 @@
 import { Account } from '../types/Account';
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { addTransaction } from './transactionLog';
 
 interface AccountsState {
@@ -13,31 +13,50 @@ const initialState: AccountsState = {
 const accountsSlice = createSlice({
   name: 'accounts',
   initialState,
-  reducers: {},
-  extraReducers: (builder) => {
-    builder.addCase(addTransaction, (state, action) => {
-      const { fromAccount, toAccount, amount } = action.payload.transaction
+  reducers: {
+    addAccount: (state, action: PayloadAction<{ accountName: string }>) => {
+      const { accountName } = action.payload;
 
-      const currentFromAccountBalance = state.accounts[fromAccount]?.balance ?? 0;
-      const currentToAccountBalance = state.accounts[toAccount]?.balance ?? 0;
+      if (state.accounts[accountName] !== undefined) {
+        return state;
+      }
 
-      const newAccounts = {
+      const newAccountsState = {
         ...state.accounts,
-        [fromAccount]: {
-          name: fromAccount,
-          balance: currentFromAccountBalance - amount
-        },
-        [toAccount]: {
-          name: toAccount,
-          balance: currentToAccountBalance + amount
+        [accountName]: {
+          name: accountName,
+          balance: 0
         }
       };
 
       return {
         ...state,
-        newAccounts
+        accounts: newAccountsState
       };
-    });
+    },
+    addBalance: (
+      state,
+      action: PayloadAction<{ accountName: string; amount: number }>
+    ) => {
+      const { accountName, amount } = action.payload;
+
+      if (state.accounts[accountName] === undefined) {
+        return state;
+      }
+
+      const newAccountsState = {
+        ...state.accounts,
+        [accountName]: {
+          name: accountName,
+          balance: state.accounts[accountName].balance + amount
+        }
+      };
+
+      return {
+        ...state,
+        accounts: newAccountsState
+      };
+    }
   }
 });
 
