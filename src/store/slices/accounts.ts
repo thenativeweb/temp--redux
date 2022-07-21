@@ -16,8 +16,27 @@ const accountsSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(addTransaction, (state, action) => {
-      // TODO: Compute the new state.
-      return state;
+      const { fromAccount, toAccount, amount } = action.payload.transaction
+
+      const currentFromAccountBalance = state.accounts[fromAccount]?.balance ?? 0;
+      const currentToAccountBalance = state.accounts[toAccount]?.balance ?? 0;
+
+      const newAccounts = {
+        ...state.accounts,
+        [fromAccount]: {
+          name: fromAccount,
+          balance: currentFromAccountBalance - amount
+        },
+        [toAccount]: {
+          name: toAccount,
+          balance: currentToAccountBalance + amount
+        }
+      };
+
+      return {
+        ...state,
+        newAccounts
+      };
     });
   }
 });
