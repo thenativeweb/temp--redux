@@ -1,0 +1,10 @@
+.transaction-form {
+    display: grid;
+    grid-template-columns: 15rem 10rem;
+
+    margin-bottom: 3rem;
+}
+
+.transaction-form button {
+    grid-column-start: 2;
+}

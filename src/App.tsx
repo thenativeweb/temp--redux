@@ -1,33 +1,21 @@
-import React from 'react';
+import { Content } from './layout/Content';
+import { Sidebar } from './layout/Sidebar';
+import { Transactions } from './pages/Transactions';
+import { Route, Routes } from 'react-router';
+import * as React from 'react';
 import './App.css';
-import { useDispatch, useSelector } from 'react-redux';
-import { AppState, Dispatch } from './store/setupStore';
 
 function App() {
-  const dispatch = useDispatch<Dispatch>();
-  const transactions = useSelector((state: AppState) => state.transactions);
-
-  const handleButtonClick = function () {
-    dispatch({
-      type: 'ADD_TRANSACTION',
-      payload: {
-        transaction: {
-          fromAccount: 'hannes',
-          toAccount: 'noah',
-          amount: 1337
-        }
-      }
-    })
-  }
-
   return (
-    <div className="App">
-      <ul>
-        {transactions.map(transaction => (<li>
-          From: {transaction.fromAccount} To: {transaction.toAccount} Amount: {transaction.amount}
-        </li>))}
-      </ul>
-      <button onClick={handleButtonClick}>Add transaction!</button>
+    <div className='App'>
+      <Sidebar />
+      <div>
+        <Content>
+          <Routes>
+            <Route path='/' element={<Transactions />} />
+          </Routes>
+        </Content>
+      </div>
     </div>
   );
 }
