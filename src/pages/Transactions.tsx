@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import * as React from 'react';
 
 const Transactions: React.FunctionComponent = () => {
-  const transactions = useSelector((state: AppState) => state.transactions);
+  const transactions = useSelector((state: AppState) => state.transactionLog.transactions);
 
   return (
     <div>

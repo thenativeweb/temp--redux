@@ -1,4 +1,5 @@
-import {addTransaction, Dispatch} from '../store/setupStore';
+import { addTransaction } from '../store/slices/transactionLog';
+import { Dispatch } from '../store/setupStore';
 import { useDispatch } from 'react-redux';
 import * as React from 'react';
 import './TransactionForm.css';
