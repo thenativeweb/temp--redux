@@ -1,6 +1,5 @@
 import { Account } from '../types/Account';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { addTransaction } from './transactionLog';
 
 interface AccountsState {
   accounts: Record<string, Account>;
@@ -60,4 +59,10 @@ const accountsSlice = createSlice({
   }
 });
 
+const { addAccount, addBalance } = accountsSlice.actions;
+
+export {
+  addAccount,
+  addBalance
+};
 export default accountsSlice.reducer;

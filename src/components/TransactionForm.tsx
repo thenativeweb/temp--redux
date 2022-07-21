@@ -1,8 +1,8 @@
-import { addTransaction } from '../store/slices/transactionLog';
 import { Dispatch } from '../store/setupStore';
 import { useDispatch } from 'react-redux';
 import * as React from 'react';
 import './TransactionForm.css';
+import { addTransactionThunk } from '../store/thunks/addTransactionThunk'
 
 const TransactionForm: React.FunctionComponent = () => {
   const dispatch = useDispatch<Dispatch>();
@@ -23,14 +23,11 @@ const TransactionForm: React.FunctionComponent = () => {
 
   const handleFormSubmit: React.EventHandler<React.FormEvent> = (event) => {
     event.preventDefault();
-    dispatch(addTransaction({
-      transaction: {
-        transactionId: '',
-        fromAccount,
-        toAccount,
-        amount
-      }
+
+    dispatch(addTransactionThunk({
+      transaction: { transactionId: '', fromAccount, toAccount, amount }
     }));
+
     setFromAccount('');
     setToAccount('');
     setAmount(0);

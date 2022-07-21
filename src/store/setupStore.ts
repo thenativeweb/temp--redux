@@ -7,7 +7,8 @@ const setupStore = function () {
     reducer: {
       accounts,
       transactionLog
-    }
+    },
+    devTools: true
   });
 }
 
