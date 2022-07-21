@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { ActionType, createAction, createReducer } from 'typesafe-actions';
 import { Transaction } from '../types/Transaction';
 
 interface TransactionLogState {
@@ -9,26 +9,25 @@ const initialState: TransactionLogState = {
   transactions: []
 };
 
-const transactionLogSlice = createSlice({
-  name: 'transactionLog',
-  initialState,
-  reducers: {
-    addTransaction: (
-      state,
-      action: PayloadAction<{ transaction: Transaction }>
-    ) => {
-      return {
-        transactions: [ ...state.transactions, action.payload.transaction ]
-      };
-    }
-  }
-});
+const addTransaction = createAction('transactionLog/addTransaction')<{ transaction: Transaction }>();
 
-const {
+const actions = {
   addTransaction
-} = transactionLogSlice.actions;
+};
+
+type TransactionLogAction = ActionType<typeof actions>;
+
+const transactionLogReducer = createReducer<TransactionLogState, TransactionLogAction>(initialState)
+  .handleAction(addTransaction, (state, action) => {
+    return {
+      transactions: [ ...state.transactions, action.payload.transaction ]
+    };
+  });
 
 export {
   addTransaction
 };
-export default transactionLogSlice.reducer;
+export default transactionLogReducer;
+export type {
+  TransactionLogAction
+};

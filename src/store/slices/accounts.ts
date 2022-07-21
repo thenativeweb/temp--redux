@@ -1,5 +1,5 @@
 import { Account } from '../types/Account';
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { ActionType, createAction, createReducer } from 'typesafe-actions';
 
 interface AccountsState {
   accounts: Record<string, Account>;
@@ -9,35 +9,39 @@ const initialState: AccountsState = {
   accounts: {}
 };
 
-const accountsSlice = createSlice({
-  name: 'accounts',
-  initialState,
-  reducers: {
-    addAccount: (state, action: PayloadAction<{ accountName: string }>) => {
-      const { accountName } = action.payload;
+const addAccount = createAction('accounts/ADD_ACCOUNT')<{ accountName: string }>();
+const addBalance = createAction('accounts/ADD_BALANCE')<{ accountName: string; amount: number }>();
 
-      if (state.accounts[accountName] !== undefined) {
-        return state;
+const actions = {
+  addAccount,
+  addBalance
+};
+
+type AccountsAction = ActionType<typeof actions>
+
+const accountsReducer = createReducer<AccountsState, AccountsAction>(initialState)
+  .handleAction(addAccount,  (state, action) => {
+    const { accountName } = action.payload;
+  
+    if (state.accounts[accountName] !== undefined) {
+      return state;
+    }
+  
+    const newAccountsState = {
+      ...state.accounts,
+      [accountName]: {
+        name: accountName,
+        balance: 0
       }
-
-      const newAccountsState = {
-        ...state.accounts,
-        [accountName]: {
-          name: accountName,
-          balance: 0
-        }
-      };
-
-      return {
-        ...state,
-        accounts: newAccountsState
-      };
-    },
-    addBalance: (
-      state,
-      action: PayloadAction<{ accountName: string; amount: number }>
-    ) => {
-      const { accountName, amount } = action.payload;
+    };
+  
+    return {
+      ...state,
+      accounts: newAccountsState
+    };
+  })
+  .handleAction(addBalance, (state, action) => {
+    const { accountName, amount } = action.payload;
 
       if (state.accounts[accountName] === undefined) {
         return state;
@@ -55,14 +59,13 @@ const accountsSlice = createSlice({
         ...state,
         accounts: newAccountsState
       };
-    }
-  }
-});
-
-const { addAccount, addBalance } = accountsSlice.actions;
+  });
 
 export {
   addAccount,
   addBalance
 };
-export default accountsSlice.reducer;
+export default accountsReducer;
+export type {
+  AccountsAction
+};

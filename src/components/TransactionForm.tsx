@@ -2,8 +2,10 @@ import { Dispatch } from '../store/setupStore';
 import { useDispatch } from 'react-redux';
 import * as React from 'react';
 import './TransactionForm.css';
-import { addTransactionThunk } from '../store/thunks/addTransactionThunk'
+import { addTransactionEpicAction } from '../store/epic/addTransaction/actions';
 import {Currency} from "../store/types/Currency";
+import { addTransaction } from '../store/slices/transactionLog';
+import { addAccount, addBalance } from '../store/slices/accounts';
 
 const TransactionForm: React.FunctionComponent = () => {
   const dispatch = useDispatch<Dispatch>();
@@ -29,7 +31,7 @@ const TransactionForm: React.FunctionComponent = () => {
   const handleFormSubmit: React.EventHandler<React.FormEvent> = (event) => {
     event.preventDefault();
 
-    dispatch(addTransactionThunk({
+    dispatch(addTransactionEpicAction.request({
       transaction: { transactionId: '', fromAccount, toAccount, amount },
       currency
     }));
