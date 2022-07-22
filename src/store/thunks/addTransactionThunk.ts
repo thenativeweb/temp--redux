@@ -6,16 +6,17 @@ import {Currency} from "../types/Currency";
 
 const addTransactionThunk = createAsyncThunk(
   'addTransactionThunk',
-  async ({ transaction, currency }: {
+  async (args: {
     transaction: Transaction;
-    currency: Currency
+    currency: Currency;
+    fetch: typeof fetch,
   }, thunkAPI) => {
-    const { fromAccount, toAccount, amount } = transaction;
+    const { transactionId, fromAccount, toAccount, amount } = args.transaction;
 
     let currencyConvertedAmount = amount;
-    if (currency !== Currency.EUR) {
-      const response = await fetch(
-        `https://api.frankfurter.app/latest?from=${currency}&to=${Currency.EUR}`
+    if (args.currency !== Currency.EUR) {
+      const response = await args.fetch(
+        `https://api.frankfurter.app/latest?from=${args.currency}&to=${Currency.EUR}`
       );
       const responseBody = await response.json();
       currencyConvertedAmount = Math.round(amount * responseBody.rates[Currency.EUR]);
@@ -23,7 +24,7 @@ const addTransactionThunk = createAsyncThunk(
 
     thunkAPI.dispatch(addTransaction({
       transaction: {
-        transactionId: '',
+        transactionId,
         fromAccount,
         toAccount,
         amount: currencyConvertedAmount

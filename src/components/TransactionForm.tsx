@@ -29,10 +29,13 @@ const TransactionForm: React.FunctionComponent = () => {
   const handleFormSubmit: React.EventHandler<React.FormEvent> = (event) => {
     event.preventDefault();
 
-    dispatch(addTransactionThunk({
+    const thunkResult = dispatch(addTransactionThunk({
       transaction: { transactionId: '', fromAccount, toAccount, amount },
-      currency
+      currency,
+      fetch
     }));
+
+    console.log({ thunkResult });
 
     setFromAccount('');
     setToAccount('');

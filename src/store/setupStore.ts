@@ -1,16 +1,17 @@
 import accounts from './slices/accounts';
-import { configureStore } from '@reduxjs/toolkit';
+import { CombinedState, configureStore, PreloadedState } from '@reduxjs/toolkit';
 import transactionLog from './slices/transactionLog';
 
-const setupStore = function () {
+const setupStore = function (preloadedState?: any) {
   return configureStore({
     reducer: {
       accounts,
       transactionLog
     },
-    devTools: true
+    devTools: true,
+    preloadedState,
   });
-}
+};
 
 type AppStore = ReturnType<typeof setupStore>;
 type AppState = ReturnType<AppStore['getState']>;
@@ -20,7 +21,7 @@ export type {
   AppStore,
   AppState,
   Dispatch
-}
+};
 export {
   setupStore
 };
