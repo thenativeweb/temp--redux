@@ -9,14 +9,14 @@ import { catchError, concatMap, filter, from, mergeMap, of } from 'rxjs';
 import { isActionOf } from 'typesafe-actions';
 import { addTransactionEpicAction } from './actions';
 
-const addTransactionEpic: Epic<RootAction, RootAction, AppState>
-  = (action$, state$) => action$.pipe(
+const addTransactionEpic: Epic<RootAction, RootAction, AppState, { fetch: typeof fetch }>
+  = (action$, state$, services) => action$.pipe(
     filter(isActionOf(addTransactionEpicAction.request)),
     mergeMap(action =>
       action.payload.currency === Currency.EUR
         ? of(action.payload.transaction)
         : from(
-          fetch(
+          services.fetch(
             `https://api.frankfurter.app/latest?from=${action.payload.currency}&to=${Currency.EUR}`
           )
             .then(response => response.json())

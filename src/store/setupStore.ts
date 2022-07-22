@@ -6,15 +6,24 @@ import type { Dispatch as ReduxDispatch } from 'redux';
 import { createEpicMiddleware } from 'redux-observable';
 import { rootEpic } from './epic/rootEpic';
 
-const epicMiddleware = createEpicMiddleware();
+interface Dependencies {
+  fetch: typeof fetch;
+}
 
-const setupStore = function () {
-  
+const setupStore = function (args: {
+  preloadedState?: any;
+  dependencies: Dependencies;
+}) {
+  const epicMiddleware = createEpicMiddleware({
+    dependencies: args.dependencies
+  });
+
   const store = createStore(
     combineReducers({
       accounts,
       transactionLog
     }),
+    args.preloadedState ?? {},
     applyMiddleware(epicMiddleware)
   );
 
